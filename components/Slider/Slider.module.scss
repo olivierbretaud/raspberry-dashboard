@@ -1,0 +1,17 @@
+@import '../../styles/variables';
+.slider {
+  overflow: hidden;
+} 
+
+.inner-slider {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  transition: transform 0.3s;
+}
+
+.slider-item {
+  position: relative;
+  height: 100%;
+  object-fit: contain;
+}

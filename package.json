@@ -8,10 +8,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "eventsource": "^1.1.0",
+    "express": "^4.17.2",
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "sass": "^1.49.4"
+    "react-swipeable": "^6.2.0",
+    "sass": "^1.49.4",
+    "usehooks-ts": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "17.0.14",

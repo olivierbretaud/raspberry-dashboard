@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import path from "path";
 import { IInitData } from '../../types/Types';
 
 export default function handler(
