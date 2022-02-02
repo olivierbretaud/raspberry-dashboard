@@ -14,7 +14,18 @@ const Home : NextPage<PageProps> = ({ data }) => {
   const { width } = useWindowSize();
 
   useEffect(() => {
-    const sseSource = new EventSource("/api/stream");
+    fetch('http://localhost:3000/api/stream' , {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type: 'open' })
+    });
+
+    const sseSource = new EventSource("http://localhost:3000/api/stream");
 
     sseSource.addEventListener('open', () => {
       console.log('SSE opened!');
@@ -27,7 +38,6 @@ const Home : NextPage<PageProps> = ({ data }) => {
     sseSource.addEventListener('error', (e : any) => {
       console.error('Error: ',  e);
     });
-
     return () => {
       sseSource.close();
     };
@@ -60,8 +70,6 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   const res = await fetch('http://localhost:3000/api/init');
-  await fetch('http://localhost:3000/api/stream');
-  console.log('connected');
   const data : IInitData = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time

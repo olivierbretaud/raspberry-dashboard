@@ -5,7 +5,8 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<IInitData>,
 ) {
-  var fs = require('fs');
-  var images : string[] = fs.readdirSync(process.env.IMAGES_PATH).map((f:string) => `/images/${f}`);
+  // eslint-disable-next-line
+  const fs = require('fs');
+  const images : string[] = fs.readdirSync(process.env.IMAGES_PATH).map((f:string) => `/images/${f}`);
   res.status(200).json({ images });
 }

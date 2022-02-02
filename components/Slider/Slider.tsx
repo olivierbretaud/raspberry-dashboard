@@ -27,16 +27,16 @@ export default function Slider({ children, width } : { children: React.ReactElem
   }
 
   const handleSwipe = async (index: number) => {
-    // await fetch('http://localhost:3000/api/stream' , {
-    //   method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    //   mode: 'cors', // no-cors, *cors, same-origin
-    //   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    //   credentials: 'same-origin', // include, *same-origin, omit
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ type: 'image' , value: index })
-    // });
+    await fetch('http://localhost:3000/api/stream' , {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type: 'image' , value: index })
+    });
   }
 
   const handlers = useSwipeable({
