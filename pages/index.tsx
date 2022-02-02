@@ -25,7 +25,7 @@ const Home : NextPage<PageProps> = ({ data }) => {
       body: JSON.stringify({ type: 'open' })
     });
 
-    const sseSource = new EventSource("http://localhost:3000/api/stream");
+    const sseSource = new EventSource("/api/stream");
 
     sseSource.addEventListener('open', () => {
       console.log('SSE opened!');
