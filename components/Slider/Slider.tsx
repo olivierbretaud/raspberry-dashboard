@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
+import { useGesture } from '@use-gesture/react';
 import styles from './Slider.module.scss';
+import { postEvent } from '../../utils/utils';
 
 export const SliderItem = ({ children, width }: { children: React.ReactElement, width: number }) => {
   return (
@@ -26,28 +28,19 @@ export default function Slider({ children, width } : { children: React.ReactElem
     setActiveIndex(newIndex);
   }
 
-  const handleSwipe = async (index: number) => {
-    await fetch('http://localhost:3000/api/stream' , {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ type: 'image' , value: index })
-    });
+  function sendImageIndex(index: number) {
+
   }
 
   const handlers = useSwipeable({
-    onSwipedLeft: () => handleSwipe(activeIndex + 1),
-    onSwipedRight: () => handleSwipe(activeIndex - 1),
+    onSwipedLeft: () => postEvent({ type: 'image' , value: activeIndex + 1}),
+    onSwipedRight: () => postEvent({ type: 'image' , value: activeIndex - 1}),
   });
 
   useEffect(() => {
     const interval = setInterval(() => {
       updateIndex(activeIndex + 1);
-    }, 12000);
+    }, 100000);
 
     return () => {
       if (interval) {

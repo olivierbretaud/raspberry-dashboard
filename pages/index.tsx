@@ -4,6 +4,7 @@ import { useWindowSize } from 'usehooks-ts'
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
+import { eventUrl } from '../utils/utils';
 import { IInitData } from '../types/Types';
 import Slider, { SliderItem } from '../components/Slider/Slider';
 
@@ -12,27 +13,25 @@ type PageProps = PropsWithChildren<{ data: IInitData }>
 const Home : NextPage<PageProps> = ({ data }) => {
   var EventSource = require("eventsource");
   const { width } = useWindowSize();
-
   useEffect(() => {
-    fetch('http://localhost:3000/api/stream' , {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    fetch(eventUrl, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       credentials: 'same-origin', // include, *same-origin, omit
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ type: 'open' })
     });
 
-    const sseSource = new EventSource("/api/stream");
+    const sseSource = new EventSource(eventUrl);
 
     sseSource.addEventListener('open', () => {
       console.log('SSE opened!');
     });
 
     sseSource.addEventListener('message', (e : any) => {
-      console.log('message');
+      console.log('message', e.data );
     });
 
     sseSource.addEventListener('error', (e : any) => {
